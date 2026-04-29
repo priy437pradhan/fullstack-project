@@ -41,3 +41,38 @@ model ClassSchedule {
   order     Int      @default(0)
   createdAt DateTime @default(now())
 }
+
+model Trainer {
+  id         String   @id @default(cuid())
+  name       String
+  specialty  String
+  experience String
+  bio        String
+  imageUrl   String?
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+}
+
+model Equipment {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  icon        String   @default("dumbbell")
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
+model SiteSettings {
+  id           String   @id @default("singleton")
+  gymName      String   @default("Power Gym")
+  tagline      String   @default("Stronger. Every day.")
+  phone        String   @default("")
+  email        String   @default("")
+  address      String   @default("")
+  instagramUrl String   @default("")
+  facebookUrl  String   @default("")
+  twitterUrl   String   @default("")
+  youtubeUrl   String   @default("")
+  whatsappNum  String   @default("")
+  updatedAt    DateTime @updatedAt
+}
