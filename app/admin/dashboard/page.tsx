@@ -18,7 +18,7 @@ export default function DashboardPage() {
   const [planForm, setPlanForm] = useState({ name: '', duration: '', price: '', features: '', order: 0 });
   const [scheduleForm, setScheduleForm] = useState({ day: '', time: '', className: '', trainer: '', order: 0 });
   const [trainerForm, setTrainerForm] = useState({ name: '', specialty: '', experience: '', bio: '', imageUrl: '', order: 0 });
-  const [equipmentForm, setEquipmentForm] = useState({ name: '', description: '', icon: 'dumbbell', order: 0 });
+const [equipmentForm, setEquipmentForm] = useState({ name:'', description:'', icon:'dumbbell', imageUrl:'', order:0 });
 
   async function loadAll() {
     const [t, p, s, tr, eq, st] = await Promise.all([
@@ -94,6 +94,7 @@ export default function DashboardPage() {
             <form onSubmit={(e) => { e.preventDefault(); add('tabs', tabForm, () => setTabForm({ title:'', content:'', order:0 })); }} className="bg-white border rounded-xl p-6 mb-6 space-y-3">
               <input type="text" placeholder="Title (e.g. About Us)" value={tabForm.title} onChange={e => setTabForm({...tabForm, title:e.target.value})} className="w-full border rounded-lg px-3 py-2" required />
               <textarea placeholder="Content" value={tabForm.content} onChange={e => setTabForm({...tabForm, content:e.target.value})} className="w-full border rounded-lg px-3 py-2 min-h-[80px]" required />
+                <input type="url" placeholder="Equipment Image URL (optional)" value={equipmentForm.imageUrl} onChange={e => setEquipmentForm({...equipmentForm, imageUrl:e.target.value})} className="w-full border rounded-lg px-3 py-2" />
               <input type="number" placeholder="Order" value={tabForm.order} onChange={e => setTabForm({...tabForm, order:Number(e.target.value)})} className="w-full border rounded-lg px-3 py-2" />
               <button className="bg-gray-900 text-white rounded-lg px-6 py-2 hover:bg-gray-800">Add Tab</button>
             </form>
@@ -182,7 +183,7 @@ export default function DashboardPage() {
         {activeTab === 'equipment' && (
           <section>
             <h2 className="text-2xl font-semibold mb-4">Equipment / Facilities</h2>
-            <form onSubmit={(e) => { e.preventDefault(); add('equipment', equipmentForm, () => setEquipmentForm({ name:'', description:'', icon:'dumbbell', order:0 })); }} className="bg-white border rounded-xl p-6 mb-6 space-y-3">
+            <form onSubmit={(e) => { e.preventDefault(); add('equipment', equipmentForm, () => setEquipmentForm({ name:'', description:'', icon:'dumbbell', imageUrl:'', order:0 })); }} className="bg-white border rounded-xl p-6 mb-6 space-y-3">
               <input type="text" placeholder="Name" value={equipmentForm.name} onChange={e => setEquipmentForm({...equipmentForm, name:e.target.value})} className="w-full border rounded-lg px-3 py-2" required />
               <input type="text" placeholder="Description" value={equipmentForm.description} onChange={e => setEquipmentForm({...equipmentForm, description:e.target.value})} className="w-full border rounded-lg px-3 py-2" required />
               <select value={equipmentForm.icon} onChange={e => setEquipmentForm({...equipmentForm, icon:e.target.value})} className="w-full border rounded-lg px-3 py-2">
@@ -216,8 +217,7 @@ export default function DashboardPage() {
             <form onSubmit={saveSettings} className="bg-white border rounded-xl p-6 space-y-3">
               <h3 className="font-semibold text-gray-700">Branding</h3>
               <input type="text" placeholder="Gym Name" value={settings.gymName || ''} onChange={e => setSettings({...settings, gymName:e.target.value})} className="w-full border rounded-lg px-3 py-2" />
-              <input type="text" placeholder="Tagline" value={settings.tagline || ''} onChange={e => setSettings({...settings, tagline:e.target.value})} className="w-full border rounded-lg px-3 py-2" />
-              
+              <input type="url" placeholder="Logo Image URL (e.g. https://...)" value={settings.logoUrl || ''} onChange={e => setSettings({...settings, logoUrl:e.target.value})} className="w-full border rounded-lg px-3 py-2" />
               <h3 className="font-semibold text-gray-700 pt-4">Contact</h3>
               <input type="text" placeholder="Phone" value={settings.phone || ''} onChange={e => setSettings({...settings, phone:e.target.value})} className="w-full border rounded-lg px-3 py-2" />
               <input type="text" placeholder="Email" value={settings.email || ''} onChange={e => setSettings({...settings, email:e.target.value})} className="w-full border rounded-lg px-3 py-2" />

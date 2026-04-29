@@ -57,6 +57,7 @@ model Equipment {
   id          String   @id @default(cuid())
   name        String
   description String
+   imageUrl    String?   
   icon        String   @default("dumbbell")
   order       Int      @default(0)
   createdAt   DateTime @default(now())
@@ -66,6 +67,7 @@ model SiteSettings {
   id           String   @id @default("singleton")
   gymName      String   @default("Power Gym")
   tagline      String   @default("Stronger. Every day.")
+  logoUrl      String   @default("") 
   phone        String   @default("")
   email        String   @default("")
   address      String   @default("")

@@ -32,12 +32,16 @@ export default async function HomePage() {
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-4 flex items-center justify-between">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-gray-900 to-gray-700 rounded-xl flex items-center justify-center text-white font-bold text-lg group-hover:scale-105 transition-transform">
-              💪
-            </div>
-            <span className="text-xl font-semibold tracking-tight">{gymName}</span>
-          </a>
+     <a href="/" className="flex items-center gap-2 group">
+  {settings?.logoUrl ? (
+    <img src={settings.logoUrl} alt={gymName} className="w-10 h-10 rounded-xl object-cover group-hover:scale-105 transition-transform" />
+  ) : (
+    <div className="w-10 h-10 bg-gradient-to-br from-gray-900 to-gray-700 rounded-xl flex items-center justify-center text-white font-bold text-lg group-hover:scale-105 transition-transform">
+      💪
+    </div>
+  )}
+  <span className="text-xl font-semibold tracking-tight">{gymName}</span>
+</a>
 
           {/* Nav */}
           <nav className="hidden md:flex items-center gap-8">
@@ -130,24 +134,26 @@ export default async function HomePage() {
               <p className="text-sm font-medium text-gray-400 tracking-widest uppercase mb-4">Our Team</p>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">Meet your trainers.</h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {trainers.map((t) => (
-                <div key={t.id} className="bg-gray-800 rounded-3xl overflow-hidden hover:scale-[1.02] transition-all duration-300">
-                  <div className="aspect-square bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
-                    {t.imageUrl ? (
-                      <img src={t.imageUrl} alt={t.name} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="text-7xl">💪</div>
-                    )}
+            <div className="overflow-x-auto pb-4 -mx-6 sm:-mx-8 lg:-mx-12 px-6 sm:px-8 lg:px-12">
+              <div className="flex gap-6" style={{ minWidth: 'min-content' }}>
+                {trainers.map((t) => (
+                  <div key={t.id} className="flex-shrink-0 w-80 sm:w-96 bg-gray-800 rounded-3xl overflow-hidden hover:scale-[1.02] transition-all duration-300">
+                    <div className="aspect-square bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center overflow-hidden">
+                      {t.imageUrl ? (
+                        <img src={t.imageUrl} alt={t.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="text-7xl">💪</div>
+                      )}
+                    </div>
+                    <div className="p-6 sm:p-8">
+                      <p className="text-xs font-medium text-gray-400 tracking-widest uppercase mb-2">{t.specialty}</p>
+                      <h3 className="text-2xl font-semibold mb-1">{t.name}</h3>
+                      <p className="text-sm text-gray-400 mb-4">{t.experience}</p>
+                      <p className="text-gray-300 text-sm leading-relaxed">{t.bio}</p>
+                    </div>
                   </div>
-                  <div className="p-6 sm:p-8">
-                    <p className="text-xs font-medium text-gray-400 tracking-widest uppercase mb-2">{t.specialty}</p>
-                    <h3 className="text-2xl font-semibold mb-1">{t.name}</h3>
-                    <p className="text-sm text-gray-400 mb-4">{t.experience}</p>
-                    <p className="text-gray-300 text-sm leading-relaxed">{t.bio}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -161,14 +167,24 @@ export default async function HomePage() {
               <p className="text-sm font-medium text-gray-500 tracking-widest uppercase mb-4">Facilities</p>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">Premium equipment.</h2>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-              {equipment.map((e) => (
-                <div key={e.id} className="bg-white rounded-2xl p-6 sm:p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                  <div className="text-5xl sm:text-6xl mb-4">{equipmentIcons[e.icon] || '🏋️'}</div>
-                  <h3 className="text-lg font-semibold mb-2">{e.name}</h3>
-                  <p className="text-sm text-gray-600">{e.description}</p>
-                </div>
-              ))}
+            <div className="overflow-x-auto pb-4 -mx-6 sm:-mx-8 lg:-mx-12 px-6 sm:px-8 lg:px-12">
+              <div className="flex gap-4 sm:gap-6" style={{ minWidth: 'min-content' }}>
+                {equipment.map((e) => (
+                  <div key={e.id} className="flex-shrink-0 w-64 sm:w-72 bg-white rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
+                      {e.imageUrl ? (
+                        <img src={e.imageUrl} alt={e.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="text-7xl">{equipmentIcons[e.icon] || '🏋️'}</div>
+                      )}
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-lg font-semibold mb-2">{e.name}</h3>
+                      <p className="text-sm text-gray-600">{e.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
