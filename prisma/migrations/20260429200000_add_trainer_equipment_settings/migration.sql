@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS "Equipment" (
 
 CREATE TABLE IF NOT EXISTS "SiteSettings" (
   "id" TEXT NOT NULL,
-  "gymName" TEXT NOT NULL DEFAULT '',
-  "tagline" TEXT NOT NULL DEFAULT '',
+  "gymName" TEXT NOT NULL DEFAULT 'Power Gym',
+  "tagline" TEXT NOT NULL DEFAULT 'Stronger. Every day.',
   "phone" TEXT NOT NULL DEFAULT '',
   "email" TEXT NOT NULL DEFAULT '',
   "address" TEXT NOT NULL DEFAULT '',
